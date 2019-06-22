@@ -184,7 +184,7 @@
 							},
 							{
 								"source": {
-									"type": "String",
+									"type": "Int32",
 									"ordinal": 16
 								},
 								"sink": {
