@@ -27,7 +27,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "DROP TABLE IF EXISTS [EMPH2331].[Match]\nCREATE TABLE  [EMPH2331].[Match](\n    [Match_SK] [int] NOT NULL,\n    [match_id] [int] NOT NULL,\n    [Team1] [nvarchar](50) NOT NULL,\n    [Team2] [nvarchar](50) NOT NULL,\n    [match_date] [datetime2](7) NOT NULL,\n    [Season_Year] [int] NOT NULL,\n    [Venue_Name] [nvarchar](100) ,\n    [City_Name] [nvarchar](50) ,\n    [Country_Name] [nvarchar](50),\n    [Toss_Winner] [nvarchar](50) NULL,\n    [match_winner] [nvarchar](50) ,\n    [Toss_Name] [nvarchar](50) ,\n    [Win_Type] [nvarchar](50) NULL,\n    [Outcome_Type] [nvarchar](50) ,\n    [ManOfMach] [nvarchar](50) ,\n    [Win_Margin] int ,\n    [Country_id] [int] \n) "
+						"preCopyScript": "DROP TABLE IF EXISTS [EMPH2331].[Match]\nCREATE TABLE  [EMPH2331].[Match](\n    [Match_SK] [int] NOT NULL,\n    [match_id] [int] NOT NULL,\n    [Team1] [nvarchar](50) NOT NULL,\n    [Team2] [nvarchar](50) NOT NULL,\n    [match_date] [datetime2](7) NOT NULL,\n    [Season_Year] [int] NOT NULL,\n    [Venue_Name] [nvarchar](100) ,\n    [City_Name] [nvarchar](50) ,\n    [Country_Name] [nvarchar](50),\n    [Toss_Winner] [nvarchar](50) NULL,\n    [match_winner] [nvarchar](50) ,\n    [Toss_Name] [nvarchar](50) ,\n    [Win_Type] [nvarchar](50) NULL,\n    [Outcome_Type] [nvarchar](50) ,\n    [ManOfMach] [nvarchar](50) ,\n    [Win_Margin] [int] ,\n    [Country_id] [int] \n) "
 					},
 					"enableStaging": false,
 					"translator": {
@@ -218,6 +218,32 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Stored Procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy Data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"storedProcedureName": "[EMPH2331].[usp_get5Detail]"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase5",
+					"type": "LinkedServiceReference"
+				}
 			}
 		]
 	}
